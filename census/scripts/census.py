@@ -4,7 +4,10 @@ from parseinmates import parseinmates
 
 def main():
     print "pulling todays census."
-    pdftext,success = pullpdf()
+    #pdftext,success = pullpdf()
+    success = True
+    with open("pdftext.txt", "r") as _file:
+        pdftext = _file.read()
     if success:
         print "pulling inmates from census data."
         _inmates,success = pullinmates(pdftext)
