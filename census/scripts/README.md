@@ -1,9 +1,40 @@
 ####Census Scripts####
 
+This set of tools takes in the URL of the Monroe County Jail Inmate Census, and spits out
+a SQLite3 database with all of the inmates and what they were booked for in it.
+
+
+#####Description#####
+
 These are a set of scripts that will assist in pulling down the Monroe County Jail Inmate 
 Census, Parse the PDF document into human readable text, format that text in a way that 
 removes erroneous data, and finally parse out all of the inmates as well as their booking 
-data. 
+data and put it in an SQLite3 database. 
+
+
+#####How To Use It#####
+
+To have the tools spit out a SQLite3 database with the currently available census data, just
+execute the following:
+
+    # python census.py
+
+That will spit out a inmates.db SQLite3 database based on the currently available file found
+here: [http://www2.monroecounty.gov/sheriff-inmate]
+
+
+#####Dependancies#####
+
+I suggest running in a virtual enviornment, and then pip install the following:
+
+     pip install beautifulsoup4
+
+     pip install pdfminer
+
+Those are the only two non-python2.7 packages used in the project.
+
+
+#####Files#####
 
 
     pullpdf.py
