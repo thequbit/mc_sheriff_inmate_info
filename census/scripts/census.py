@@ -4,12 +4,14 @@ from parseinmates import parseinmates
 
 import sqlite3 as lite
 
-def main():
+def main(DEBUG=False):
     print "pulling todays census."
-    #pdftext,success = pullpdf()
-    success = True
-    with open("pdftext.txt", "r") as _file:
-        pdftext = _file.read()
+    if DEBUG == True:
+        success = True
+        with open("pdftext.txt", "r") as _file:
+            pdftext = _file.read()
+    else:
+        pdftext,success = pullpdf()
     if success:
         print "pulling inmates from census data."
         _inmates,success = pullinmates(pdftext)
