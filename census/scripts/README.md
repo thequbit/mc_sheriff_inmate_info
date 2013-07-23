@@ -20,7 +20,7 @@ execute the following:
     # python census.py
 
 That will spit out a inmates.db SQLite3 database based on the currently available file found
-here: [http://www2.monroecounty.gov/sheriff-inmate]
+here: http://www2.monroecounty.gov/sheriff-inmate
 
 
 #####Dependancies#####
