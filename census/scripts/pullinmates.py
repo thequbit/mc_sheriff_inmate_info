@@ -22,7 +22,7 @@ def _getinmates(pdftext):
         inmates = []
         for i in range(0,len(indexes)-1):
             inmatedata = []
-            datarange = indexes[i+1]-indexes[i]-1
+            datarange = indexes[i+1]-indexes[i]
             #print "Adding {0} bits of raw data.".format(datarange)
             for j in range(0,datarange):
                 inmatedata.append(lines[indexes[i]+j])

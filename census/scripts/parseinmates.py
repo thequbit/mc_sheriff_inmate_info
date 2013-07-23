@@ -1,80 +1,79 @@
 import re
 from pprint import pprint
 
-class Inmate:
-    name = None
-    number = None
-    sex = None
-    race = None
-    dob = None
-    custodydate = None
-    custodytime = None
-    custodyclass = None
-    bookings = []
-    
-    def tostring(self):
-        print "\tName: {0}".format(self.name)
-        print "\tNumber: {0}".format(self.number)
-        print "\tSex: {0}".format(self.sex)
-        print "\tRace: {0}".format(self.race)
-        print "\tDOB: {0}".format(self.dob)
-        print "\tcust date: {0}".format(self.custodydate)
-        print "\tcust time: {0}".format(self.custodytime)
-        print "\tcust class: {0}".format(self.custodyclass)
-        print ""
-
-class Booking:
-    bookdate = None
-    booktype = None
-    custodytype = None
-    bail = None
-    bond = None
-    court = None
-    judge = None
-    arrestingagency = None
-    arrestype = None
-    roc = None
-    charge = None
-    indict = None
-    adjusteddate = None
-    term = None
-
-def _checknone(dictionary):
-    for item in dictionary:
-        if item == None:
-            return False
+def _checknone(_tuple):
+    if None in _tuple:
+        return False
     return True
+
+def _nones14():
+    return None,None,None,None,None,None,None,None,None,None,None,None,None,None
+
+def _nones7():
+    return None,None,None,None,None,None,None
 
 def parseinmates(rawinmates):
     success = True
     inmates = []
     for rawinmate in rawinmates:
         name,rawdata = rawinmate
-        inmate = Inmate()
-        #booking = None
-        inmate.name = name
-        #print "{0}".format(name)
-        print "Working on '{0}'  ...".format(name)
+        number,sex,race,dob,custodydate,custodytime,custodyclass = _nones7() 
         for data in rawdata:
             #print "Working on '{0}' ...".format(data)
             if re.match('[0-9]{6} [A-Z] [A-Z] [0-9]{2}-[0-9]{2}-[0-9]{4}',data):
                 parts = data.split(' ')
-                inmate.number = parts[0]
-                inmate.sex = parts[1]
-                inmate.race = parts[2]
-                inmate.dob = parts[3]
+                number = parts[0]
+                sex = parts[1]
+                race = parts[2]
+                dob = parts[3]
             if re.match('[0-9]{2}-[0-9]{2}-[0-9]{4} [0-9]{4} [A-Z]{3}',data):
                 parts = data.split(' ')
-                inmate.custodydate = parts[0]
-                inmate.custodytime = parts[1]
-                inmate.custodyclass = " ".join(parts[2:])
-            
-            #if _checknone(inmate.__dict__):
-            #   break
-          
-            #f _checknone(booking.__dict__):
-            #   inmate.bookings.append(booking)
-            #   booking = Booking()
-        inmate.tostring()
+                custodydate = parts[0]
+                custodytime = parts[1]
+                custodyclass = " ".join(parts[2:])
+ 
+            inmate = (name,number,sex,race,dob,custodydate,custodytime,custodyclass)
+
+            if _checknone(inmate):
+                bookings = []
+                bookdate,booktype,custodytype,bail,bond,court,judge,arrestingagency,arresttype,roc,charge,indict,adjusteddate,term = _nones14()
+                for _data in rawdata:
+                    if re.match('Book Dt:',_data):
+                        bookdate = _data.split(':')[1].strip()
+                    if re.match('Book Typ:',_data):
+                        booktype = _data.split(':')[1].strip()
+                    if re.match('Cus Typ:',_data):
+                        custodytype = _data.split(':')[1].strip()
+                    if re.match('Bail:',_data):
+                        bail = _data.split(':')[1].strip()
+                    if re.match('Bond:',_data):
+                        bond = _data.split(':')[1].strip()
+                    if re.match('Court:',_data):
+                        court = _data.split(':')[1].strip()
+                    if re.match('Judge:',_data):
+                        judge = _data.split(':')[1].strip()
+                    if re.match('Arr Agy:',_data):
+                        arrestingagency = _data.split(':')[1].strip()
+                    if re.match('Arr Typ',_data):
+                        arresttype = _data.split(':')[1].strip()
+                    if re.match('ROC:',_data):
+                        roc = _data.split(':')[1].strip()
+                    if re.match('Chg:',_data):
+                        charge = _data.split(':')[1].strip()
+                    if re.match('Indict:',_data):
+                        indict = _data.split(':')[1].strip()
+                    if re.match('Adj Dt:',_data):
+                        adjusteddate = _data.split(':')[1].strip()
+                    if re.match('Term:',_data):
+                        term = _data.split(':')[1].strip()
+                    booking = (bookdate,booktype,custodytype,bail,bond,court,judge,arrestingagency,
+                               arresttype,roc,charge,indict,adjusteddate,term)
+                    if _checknone(booking):
+                        bookings.append(booking)
+                        bookdate,booktype,custodytype,bail,bond,court,judge,arrestingagency,arresttype,roc,charge,indict,adjusteddate,term = _nones14()
+
+                break
+        inmate = (name,number,sex,race,dob,custodydate,custodytime,custodyclass,bookings)
         inmates.append(inmate)
+        inmate = None
     return inmates,success
