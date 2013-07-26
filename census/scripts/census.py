@@ -30,20 +30,23 @@ def main(DEBUG=False):
     i = inmates()
     for inmate in theinmates:
         name,mcid,sex,race,dob,custodydate,custodytime,custodyclass,bookings = inmate
-        parts = name.split(',')
-        first = parts[0]
-        parts2 = parts[1].rsplit(' ',1)[0]
-        last = parts[1]
-        if len(parts2) != 0:
-            last = parts2[0]
-        middle = ""
-        if len(parts2) == 2:
-            middle = parts2[1]
+        parts = name.replace('.','').split(',')
+        last = parts[0].strip()
+        if parts[1].rsplit(' ',1)[0] == "":
+            first = parts[1].strip()
+            middle = ""
+        else:
+            # take off middle
+            first = parts[1][:-2].strip()
+            middle = parts[1][-1:]
+        
         try:
             isodob = datetime.datetime.strptime(dob, '%m-%d-%Y').date().isoformat()
         except:
             print "name: {0}, dob: ".format(name,dob)
             raise Exception("error.")
+        
         i.add(first,last,middle,mcid,sex,race,isodob)
-
+        #print "name = {0}, first = {1}, last = {2}, middle = {3}".format(name,first,last,middle)
+        #raise Exception("you shall not pass.")
 main()
