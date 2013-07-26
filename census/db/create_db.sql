@@ -1,4 +1,4 @@
-create database if not exists inmatecensusdb;
+create database inmatecensusdb;
 
 grant usage on inmatecensusdb.* to censususer identified by 'password123%%%';
 
@@ -6,7 +6,7 @@ grant all privileges on inmatecensusdb.* to censususer;
 
 use inmatecensusdb;
 
-create table if not exists scraperruns(
+create table scraperruns(
 scraperrunid int not null auto_increment primary key,
 rundt datetime not null,
 newdatafound boolean not null,
@@ -19,7 +19,7 @@ newinmates int not null
 
 create index scraperruns_scraperrunid on scraperruns(scraperrunid);
 
-create table if not exists inmates(
+create table inmates(
 inmateid int not null auto_increment primary key,
 first varchar(256) not null,
 last varchar(256) not null,
@@ -35,7 +35,7 @@ create index inmates_mcid on inmates(mcid);
 create index inmates_sex on inmates(sex);
 create index inmates_race on inmates(race);
 
-create table if not exists custodies(
+create table custodies(
 custodyid int not null auto_increment primary key,
 inmateid int not null,
 foreign key (inmateid) references inmates(inmateid),
@@ -46,7 +46,7 @@ custodyclass varchar(256) not null
 
 create index custodies_custodyid on custodies(custodyid);
 
-create table if not exists judges(
+create table judges(
 judgeid int not null auto_increment primary key,
 fullname varchar(256) not null,
 first varchar(256),
@@ -56,7 +56,7 @@ last varchar(256)
 
 create index judges_judgeid on judges(judgeid);
 
-create table if not exists courts(
+create table courts(
 courtid int not null auto_increment primary key,
 shortname varchar(256) not null,
 fullname varchar(256),
@@ -65,7 +65,7 @@ description text
 
 create index courts_courtid on courts(courtid);
 
-create table if not exists arrestingagencies(
+create table arrestingagencies(
 arrestingagencyid int not null auto_increment primary key,
 fullname varchar(256) not null,
 description text
@@ -73,7 +73,7 @@ description text
 
 create index arrestingagencies_arrestingagencyid on arrestingagencies(arrestingagencyid);
 
-create table if not exists arresttypes(
+create table arresttypes(
 arresttypeid int not null auto_increment primary key,
 fullname varchar(256) not null,
 description text
@@ -81,7 +81,7 @@ description text
 
 create index arresttypes_arrestttype on arresttypes(arresttypeid);
 
-create table if not exists charges(
+create table charges(
 chargeid int not null auto_increment primary key,
 fullname int not null,
 description text
@@ -89,7 +89,7 @@ description text
 
 create index charges_chargeid on charges(chargeid);
 
-create table if not exists bookings(
+create table bookings(
 bookingid int not null auto_increment primary key,
 inmateid int not null,
 foreign key (inmateid) references inmates(inmateid),

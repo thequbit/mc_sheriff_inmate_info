@@ -2,7 +2,7 @@ import MySQLdb as mdb
 import _mysql as mysql
 import re
 
-class scraperuns:
+class scraperruns:
 
     __settings = {}
     __con = False
@@ -39,17 +39,17 @@ class scraperuns:
         con = self.__connect()
         with con:
             cur = con.cursor()
-            cur.execute("INSERT INTO scraperuns(rundt,newdatafound,success,filename,inmatecount,bookingscount,newinmates) VALUES(%s,%s,%s,%s,%s,%s,%s)",(self.__sanitize(rundt),self.__sanitize(newdatafound),self.__sanitize(success),self.__sanitize(filename),self.__sanitize(inmatecount),self.__sanitize(bookingscount),self.__sanitize(newinmates)))
+            cur.execute("INSERT INTO scraperruns(rundt,newdatafound,success,filename,inmatecount,bookingscount,newinmates) VALUES(%s,%s,%s,%s,%s,%s,%s)",(self.__sanitize(rundt),self.__sanitize(newdatafound),self.__sanitize(success),self.__sanitize(filename),self.__sanitize(inmatecount),self.__sanitize(bookingscount),self.__sanitize(newinmates)))
             cur.close()
             newid = cur.lastrowid
         con.close()
         return newid
 
-    def get(self,scraperunid):
+    def get(self,scraperrunid):
         con = self.__connect()
         with con:
             cur = con.cursor()
-            cur.execute("SELECT * FROM scraperuns WHERE scraperunid = %s",(scraperunid))
+            cur.execute("SELECT * FROM scraperruns WHERE scraperrunid = %s",(scraperrunid))
             row = cur.fetchone()
             cur.close()
         con.close()
@@ -59,28 +59,28 @@ class scraperuns:
         con = self.__connect()
         with con:
             cur = con.cursor()
-            cur.execute("SELECT * FROM scraperuns")
+            cur.execute("SELECT * FROM scraperruns")
             rows = cur.fetchall()
             cur.close()
-        _scraperuns = []
+        _scraperruns = []
         for row in rows:
-            _scraperuns.append(row)
+            _scraperruns.append(row)
         con.close()
-        return _scraperuns
+        return _scraperruns
 
-    def delete(self,scraperunid):
+    def delete(self,scraperrunid):
         con = self.__connect()
         with con:
             cur = con.cursor()
-            cur.execute("DELETE FROM scraperuns WHERE scraperunid = %s",(scraperunid))
+            cur.execute("DELETE FROM scraperruns WHERE scraperrunid = %s",(scraperrunid))
             cur.close()
         con.close()
 
-    def update(self,scraperunid,rundt,newdatafound,success,filename,inmatecount,bookingscount,newinmates):
+    def update(self,scraperrunid,rundt,newdatafound,success,filename,inmatecount,bookingscount,newinmates):
         con = self.__connect()
         with con:
             cur = con.cursor()
-            cur.execute("UPDATE scraperuns SET rundt = %s,newdatafound = %s,success = %s,filename = %s,inmatecount = %s,bookingscount = %s,newinmates = %s WHERE scraperunid = %s",(self.__sanitize(rundt),self.__sanitize(newdatafound),self.__sanitize(success),self.__sanitize(filename),self.__sanitize(inmatecount),self.__sanitize(bookingscount),self.__sanitize(newinmates),self.__sanitize(scraperunid)))
+            cur.execute("UPDATE scraperruns SET rundt = %s,newdatafound = %s,success = %s,filename = %s,inmatecount = %s,bookingscount = %s,newinmates = %s WHERE scraperrunid = %s",(self.__sanitize(rundt),self.__sanitize(newdatafound),self.__sanitize(success),self.__sanitize(filename),self.__sanitize(inmatecount),self.__sanitize(bookingscount),self.__sanitize(newinmates),self.__sanitize(scraperrunid)))
             cur.close()
         con.close()
 

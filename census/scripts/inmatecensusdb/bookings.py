@@ -35,11 +35,11 @@ class bookings:
             valueout = valuein
         return valuein
 
-    def add(self,inmateid,censusdate,scraperunid,bookdatetime,booktype,custodytype,bail,bond,court,courtid,judge,judgeid,arrestingagency,arrestingagencyid,arresttype,roc,charge,chargeid,fereign,indict,adjusteddate,term):
+    def add(self,inmateid,censusdate,scraperrunid,bookdatetime,booktype,custodytype,bail,bond,court,courtid,judge,judgeid,arrestingagency,arrestingagencyid,arresttype,roc,charge,chargeid,indict,adjusteddate,term):
         con = self.__connect()
         with con:
             cur = con.cursor()
-            cur.execute("INSERT INTO bookings(inmateid,censusdate,scraperunid,bookdatetime,booktype,custodytype,bail,bond,court,courtid,judge,judgeid,arrestingagency,arrestingagencyid,arresttype,roc,charge,chargeid,fereign,indict,adjusteddate,term) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(self.__sanitize(inmateid),self.__sanitize(censusdate),self.__sanitize(scraperunid),self.__sanitize(bookdatetime),self.__sanitize(booktype),self.__sanitize(custodytype),self.__sanitize(bail),self.__sanitize(bond),self.__sanitize(court),self.__sanitize(courtid),self.__sanitize(judge),self.__sanitize(judgeid),self.__sanitize(arrestingagency),self.__sanitize(arrestingagencyid),self.__sanitize(arresttype),self.__sanitize(roc),self.__sanitize(charge),self.__sanitize(chargeid),self.__sanitize(fereign),self.__sanitize(indict),self.__sanitize(adjusteddate),self.__sanitize(term)))
+            cur.execute("INSERT INTO bookings(inmateid,censusdate,scraperrunid,bookdatetime,booktype,custodytype,bail,bond,court,courtid,judge,judgeid,arrestingagency,arrestingagencyid,arresttype,roc,charge,chargeid,indict,adjusteddate,term) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(self.__sanitize(inmateid),self.__sanitize(censusdate),self.__sanitize(scraperrunid),self.__sanitize(bookdatetime),self.__sanitize(booktype),self.__sanitize(custodytype),self.__sanitize(bail),self.__sanitize(bond),self.__sanitize(court),self.__sanitize(courtid),self.__sanitize(judge),self.__sanitize(judgeid),self.__sanitize(arrestingagency),self.__sanitize(arrestingagencyid),self.__sanitize(arresttype),self.__sanitize(roc),self.__sanitize(charge),self.__sanitize(chargeid),self.__sanitize(indict),self.__sanitize(adjusteddate),self.__sanitize(term)))
             cur.close()
             newid = cur.lastrowid
         con.close()
@@ -76,11 +76,11 @@ class bookings:
             cur.close()
         con.close()
 
-    def update(self,bookingid,inmateid,censusdate,scraperunid,bookdatetime,booktype,custodytype,bail,bond,court,courtid,judge,judgeid,arrestingagency,arrestingagencyid,arresttype,roc,charge,chargeid,fereign,indict,adjusteddate,term):
+    def update(self,bookingid,inmateid,censusdate,scraperrunid,bookdatetime,booktype,custodytype,bail,bond,court,courtid,judge,judgeid,arrestingagency,arrestingagencyid,arresttype,roc,charge,chargeid,indict,adjusteddate,term):
         con = self.__connect()
         with con:
             cur = con.cursor()
-            cur.execute("UPDATE bookings SET inmateid = %s,censusdate = %s,scraperunid = %s,bookdatetime = %s,booktype = %s,custodytype = %s,bail = %s,bond = %s,court = %s,courtid = %s,judge = %s,judgeid = %s,arrestingagency = %s,arrestingagencyid = %s,arresttype = %s,roc = %s,charge = %s,chargeid = %s,fereign = %s,indict = %s,adjusteddate = %s,term = %s WHERE bookingid = %s",(self.__sanitize(inmateid),self.__sanitize(censusdate),self.__sanitize(scraperunid),self.__sanitize(bookdatetime),self.__sanitize(booktype),self.__sanitize(custodytype),self.__sanitize(bail),self.__sanitize(bond),self.__sanitize(court),self.__sanitize(courtid),self.__sanitize(judge),self.__sanitize(judgeid),self.__sanitize(arrestingagency),self.__sanitize(arrestingagencyid),self.__sanitize(arresttype),self.__sanitize(roc),self.__sanitize(charge),self.__sanitize(chargeid),self.__sanitize(fereign),self.__sanitize(indict),self.__sanitize(adjusteddate),self.__sanitize(term),self.__sanitize(bookingid)))
+            cur.execute("UPDATE bookings SET inmateid = %s,censusdate = %s,scraperrunid = %s,bookdatetime = %s,booktype = %s,custodytype = %s,bail = %s,bond = %s,court = %s,courtid = %s,judge = %s,judgeid = %s,arrestingagency = %s,arrestingagencyid = %s,arresttype = %s,roc = %s,charge = %s,chargeid = %s,indict = %s,adjusteddate = %s,term = %s WHERE bookingid = %s",(self.__sanitize(inmateid),self.__sanitize(censusdate),self.__sanitize(scraperrunid),self.__sanitize(bookdatetime),self.__sanitize(booktype),self.__sanitize(custodytype),self.__sanitize(bail),self.__sanitize(bond),self.__sanitize(court),self.__sanitize(courtid),self.__sanitize(judge),self.__sanitize(judgeid),self.__sanitize(arrestingagency),self.__sanitize(arrestingagencyid),self.__sanitize(arresttype),self.__sanitize(roc),self.__sanitize(charge),self.__sanitize(chargeid),self.__sanitize(indict),self.__sanitize(adjusteddate),self.__sanitize(term),self.__sanitize(bookingid)))
             cur.close()
         con.close()
 
