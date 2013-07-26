@@ -6,8 +6,8 @@ def _checknone(_tuple):
         return False
     return True
 
-def _nones14():
-    return None,None,None,None,None,None,None,None,None,None,None,None,None,None
+def _nones15():
+    return None,None,None,None,None,None,None,None,None,None,None,None,None,None,None
 
 def _nones7():
     return None,None,None,None,None,None,None
@@ -20,13 +20,15 @@ def parseinmates(rawinmates):
         number,sex,race,dob,custodydate,custodytime,custodyclass = _nones7() 
         for data in rawdata:
             #print "Working on '{0}' ...".format(data)
-            if re.match('[0-9]{6} [A-Z] [A-Z] [0-9]{2}-[0-9]{2}-[0-9]{4}',data):
+            if re.match('([0-9]{6}) [A-Z] [A-Z] ([0-9]{2})-([0-9]{2})-([0-9]{4})',data):
+                #print "here."
                 parts = data.split(' ')
                 number = parts[0]
                 sex = parts[1]
                 race = parts[2]
                 dob = parts[3]
             if re.match('[0-9]{2}-[0-9]{2}-[0-9]{4} [0-9]{4} [A-Z]{3}',data):
+                #print "here2"
                 parts = data.split(' ')
                 custodydate = parts[0]
                 custodytime = parts[1]
@@ -36,7 +38,7 @@ def parseinmates(rawinmates):
 
             if _checknone(inmate):
                 bookings = []
-                bookdate,booktype,custodytype,bail,bond,court,judge,arrestingagency,arresttype,roc,charge,indict,adjusteddate,term = _nones14()
+                bookdate,booktype,custodytype,bail,bond,court,expectedrelease,judge,arrestingagency,arresttype,roc,charge,indict,adjusteddate,term = _nones15()
                 for _data in rawdata:
                     if re.match('Book Dt:',_data):
                         bookdate = _data.split(':')[1].strip()
@@ -50,6 +52,8 @@ def parseinmates(rawinmates):
                         bond = _data.split(':')[1].strip()
                     if re.match('Court:',_data):
                         court = _data.split(':')[1].strip()
+                    if re.match('Exp Rel:',_data):
+                        expectedrelease = _data.split(':')[1].strip()
                     if re.match('Judge:',_data):
                         judge = _data.split(':')[1].strip()
                     if re.match('Arr Agy:',_data):
@@ -70,7 +74,7 @@ def parseinmates(rawinmates):
                                arresttype,roc,charge,indict,adjusteddate,term)
                     if _checknone(booking):
                         bookings.append(booking)
-                        bookdate,booktype,custodytype,bail,bond,court,judge,arrestingagency,arresttype,roc,charge,indict,adjusteddate,term = _nones14()
+                        bookdate,booktype,custodytype,bail,bond,court,expectedrelease,judge,arrestingagency,arresttype,roc,charge,indict,adjusteddate,term = _nones15()
 
                 break
         inmate = (name,number,sex,race,dob,custodydate,custodytime,custodyclass,bookings)
