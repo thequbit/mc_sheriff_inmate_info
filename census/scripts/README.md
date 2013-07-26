@@ -12,6 +12,11 @@ removes erroneous data, and finally parse out all of the inmates as well as thei
 data and put it in an SQLite3 database. 
 
 
+#####Example Output#####
+
+![ScreenShot](http://i.imgur.com/mn45RtI.png)
+
+
 #####How To Use It#####
 
 To have the tools spit out a SQLite3 database with the currently available census data, just
