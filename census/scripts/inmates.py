@@ -86,13 +86,14 @@ class inmates:
 
 ##### Application Specific Functions #####
 
-#    def myfunc():
-#        con = self.__connect()
-#        with con:
-#            cur = son.cursor()
-#            cur.execute("")
-#            row = cur.fetchone()
-#            cur.close()
-#        con.close()
-#        return row
+    def checkexists(self,first,last,middle,mcid):
+        con = self.__connect()
+        with con:
+            cur = con.cursor()
+            cur.execute("SELECT count(inmateid),inmateid FROM inmates WHERE first = %s and last = %s and middle = %s and mcid = %s",(self.__sanitize(first),self.__sanitize(last),self.__sanitize(middle),self.__sanitize(mcid)))
+            row = cur.fetchone()
+            cur.close()
+        con.close()
+        count,inmateid = row
+        return bool(count),inmateid
 
