@@ -15,6 +15,19 @@ from charges import charges
 from bookings import bookings
 
 
+def _addinmate(first,last,middle,mcid,sex,race,dob,custodydate,custodytime,custodyclass):
+
+    i = inmates()
+    c = custodies()
+
+    exists,inmateid = i.checkexists(first,last,middle,mcid)
+    if not exists:
+        inmateid = i.add(first,last,middle,mcid,sex,race,dob)
+    
+    c.add(inmateid,custodydate,custodytime,custodyclass)
+
+    return inmateid
+
 
 def main(DEBUG=False):
     print "Pulling inmates from the interwebs ..."
@@ -40,13 +53,10 @@ def main(DEBUG=False):
             first = parts[1][:-2].strip()
             middle = parts[1][-1:]
         
-        try:
-            isodob = datetime.datetime.strptime(dob, '%m-%d-%Y').date().isoformat()
-        except:
-            print "name: {0}, dob: ".format(name,dob)
-            raise Exception("error.")
-        
-        i.add(first,last,middle,mcid,sex,race,isodob)
+        isodob = datetime.datetime.strptime(dob, '%m-%d-%Y').date().isoformat()
+        isocustodydate = datetime.datetime.strptime(custodydate, '%m-%d-%Y').date().isoformat()       
+ 
+        _addinmate(first,last,middle,mcid,sex,race,isodob,isocustodydate,custodytime,custodyclass)
         #print "name = {0}, first = {1}, last = {2}, middle = {3}".format(name,first,last,middle)
         #raise Exception("you shall not pass.")
 main()
