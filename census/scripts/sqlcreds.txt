@@ -1,0 +1,4 @@
+host=
+username=censususer
+password=password123%%%
+database=inmatecensusdb

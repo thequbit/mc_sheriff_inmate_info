@@ -15,4 +15,4 @@ def getinmates(DEBUG=False):
         _inmates,success = pullinmates(pdftext)
     if success:
         inmates,success = parseinmates(_inmates)
-    return inmates
+    return inmates,success
