@@ -12,11 +12,6 @@ removes erroneous data, and finally parse out all of the inmates as well as thei
 data and put it in an SQLite3 database. 
 
 
-#####Example Output#####
-
-![ScreenShot](http://i.imgur.com/mn45RtI.png)
-
-
 #####How To Use It#####
 
 To have the tools spit out a SQLite3 database with the currently available census data, just
@@ -33,7 +28,6 @@ here: http://www2.monroecounty.gov/sheriff-inmate
 I suggest running in a virtual enviornment, and then pip install the following:
 
      pip install beautifulsoup4
-
      pip install pdfminer
 
 Those are the only two non-python2.7 packages used in the project.
@@ -57,11 +51,25 @@ Those are the only two non-python2.7 packages used in the project.
         This file is the last step where the row data is parsed and placed into an array of
         inmate classes so it can be used down stream.
 
+    getinmates.py
+        This file pulls all of the of the inmats together using the three above files.  It reaturns
+        a large array of tuples that have all of the inmate and booking data in them.
+
     census.py
         The entry point to the scripts shown above.  This script pulls down the latest census
-        file and pushes all of it's contents into a sqlite3 database for easy querying and 
-        over all use.
+        file and pushes all of it's contents into the MySQL database using the sql2api db access
+        layer.
 
 
 These files were purposly broken out as such to make portability easier.  There are some 
 helper functions within each script - so feel free to dive in and see how they work!
+
+
+#####Database#####
+
+The database was created to split out as much of the data as possible for running simple and easy 
+queries.  The largest table is the bookings table, however each table can and will hold interesting
+information.  You can checkout how the database is created by looking at the db cration script here:
+
+https://github.com/thequbit/mc_sheriff_inmate_info/blob/master/census/db/create_db.sql
+
