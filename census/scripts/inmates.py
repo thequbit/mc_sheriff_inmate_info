@@ -1,7 +1,6 @@
 import MySQLdb as mdb
 import _mysql as mysql
 import re
-import os
 
 class inmates:
 
@@ -10,7 +9,6 @@ class inmates:
 
     def __init__(self):
         configfile = "sqlcreds.txt"
-        print "CWD: {0}".format(os.getcwd())
         f = open(configfile)
         for line in f:
             # skip comment lines
